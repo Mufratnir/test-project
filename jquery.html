@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jquery</title>
+  </head>
+  <body>
+    <div class="top">
+      <button id="get">GET</button>
+      <button id="post">POST</button>
+      <button id="delete">DELETE</button>
+      <button id="put">PUT</button>
+    </div>
+    <div class="showdata"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $("#get").click(function () {
+        $.ajax({
+          url: "https://api.restful-api.dev/objects/ff8081819782e69e019a0f46070133b9",
+          method: "GET",
+          success: function (data) {
+            console.log(data);
+            $(".showdata").html(
+              `<span style="color: green;">GET request successful!</span> <br>Name: ${data.name}<br>Id Number:${data.id}`
+            );
+          },
+          error: function () {
+            console.log("Something went wrong try again.");
+            $(".showdata").html(
+              `<span style="color: red;">Something went wrong, try again</span>`
+            );
+          },
+        });
+      });
+      $("#post").click(function () {
+        $.ajax({
+          url: "https://api.restful-api.dev/objects",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            name: "No Name",
+            data: {
+              year: 222,
+              price: 990000000.78,
+              "CPU model": "Hard Core",
+              "Hard disk size": "100000000 TB",
+            },
+          }),
+          success: function (responseData) {
+            $(".showdata").html(
+              `<span style="color: green;">POST request successful!</span><br><pre>${JSON.stringify(
+                responseData,
+                null,
+                2
+              )}</pre>`
+            );
+            console.log("POST request successful.");
+            console.log(responseData);
+          },
+          error: function () {
+            $(".showdata").html(
+              '<span style="color: red;">POST request failed.</span>'
+            );
+            console.log("POST request failed.");
+          },
+        });
+      });
+      $("#put").click(function () {
+        $.ajax({
+          url: `https://api.restful-api.dev/objects/ff8081819782e69e019a0f46070133b9`,
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify({
+            name: "nir",
+            data: {
+              year: 2008,
+              price: 9990.99,
+              "CPU model": "Hard Core",
+              "Hard disk size": "10000 TB",
+            },
+          }),
+          success: function (responseData) {
+            $(".showdata").html(
+              `<span style="color: green;">PUT request successful!</span><br><pre>${JSON.stringify(
+                responseData,
+                null,
+                2
+              )}</pre>`
+            );
+            console.log("PUT request successful.");
+            console.log(responseData);
+          },
+          error: function () {
+            $(".showdata").html(
+              '<span style="color: red;">PUT request failed.</span>'
+            );
+            console.log("PUT request failed.");
+          },
+        });
+      });
+      let latestId = "ff8081819782e69e019a0f42d19933b4";
+      $("#delete").click(function () {
+        $.ajax({
+          url: `https://api.restful-api.dev/objects/${newId}`,
+          method: "DELETE",
+          success: function (response) {
+            $(".showdata").html(
+              `<span style="color: green;">DELETE request successful!</span><br>
+              Deleted data id:${newId} `
+            );
+            console.log("DELETE request successful.");
+            console.log(response);
+          },
+          error: function (error) {
+            $(".showdata").html(
+              '<span style="color: red;">DELETE request failed.</span>'
+            );
+            console.log("DELETE request failed.");
+            console.log(error);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

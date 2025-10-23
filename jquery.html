@@ -103,12 +103,12 @@
       let latestId = "ff8081819782e69e019a0f42d19933b4";
       $("#delete").click(function () {
         $.ajax({
-          url: `https://api.restful-api.dev/objects/${newId}`,
+          url: `https://api.restful-api.dev/objects/${latestId}`,
           method: "DELETE",
           success: function (response) {
             $(".showdata").html(
               `<span style="color: green;">DELETE request successful!</span><br>
-              Deleted data id:${newId} `
+              Deleted data id:${latestId} `
             );
             console.log("DELETE request successful.");
             console.log(response);
